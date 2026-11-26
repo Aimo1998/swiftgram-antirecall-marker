@@ -16,12 +16,10 @@ jobs:
           export THEOS=$HOME/theos
           echo "THEOS=$THEOS" >> $GITHUB_ENV
           git clone --recursive --depth 1 https://github.com/theos/theos.git $THEOS
-          # 下载 iOS SDK
-          curl -L -o /tmp/sdks.zip https://github.com/theos/sdks/archive/refs/heads/master.zip
-          mkdir -p /tmp/sdks
-          unzip -q /tmp/sdks.zip -d /tmp/sdks
           mkdir -p $THEOS/sdks
-          cp -r /tmp/sdks/sdks-master/*.sdk $THEOS/sdks/ || true
+          # 用 Xcode 自带 SDK（ditto 正确处理 symlink，避免 unzip 的权限问题）
+          SDK=$(xcrun --sdk iphoneos --show-sdk-path)
+          ditto "$SDK" "$THEOS/sdks/iPhoneOS.sdk"
           ls -la $THEOS/sdks/
 
       - name: Build package
