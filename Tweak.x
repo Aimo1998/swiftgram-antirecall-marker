@@ -10,13 +10,14 @@ static const NSInteger kMarkTag = 0x53475243; // 'SGRC'
 static const BOOL kDebugLog = YES;
 
 // 候选消息节点类名（按优先级，运行时逐个尝试）
+// Swift 类在 ObjC runtime 注册的是 mangled 名 _TtC<模块长度><模块><类名长度><类名>
 static NSArray<NSString *> *sg_candidateClasses(void) {
     return @[
+        @"_TtC25ChatMessageBubbleItemNode25ChatMessageBubbleItemNode",
+        @"_TtC28ChatMessageBubbleContentNode28ChatMessageBubbleContentNode",
+        @"_TtC19ChatMessageItemView19ChatMessageItemView",
         @"ChatMessageBubbleItemNode",
-        @"ChatMessageBubbleItemNode.ChatMessageBubbleItemNode",
         @"ChatMessageBubbleContentNode",
-        @"ChatMessageBubbleContentNode.ChatMessageBubbleContentNode",
-        @"ChatMessageBubbleItemNode.ChatMessageBubbleItemNode",
     ];
 }
 
