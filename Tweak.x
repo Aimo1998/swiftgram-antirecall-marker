@@ -38,28 +38,30 @@ static BOOL sg_isRecalled(id msgIdValue) {
 
 // ============ 从消息节点提取消息 ID ============
 // 这里是真机调试重点：Swift 属性是否 @objc 暴露决定哪条路径能取到 ID
+// Swiftgram 消息对象的标准属性名是 messageId（readonly int，ivar _messageId）
 static NSNumber *sg_extractMessageId(id node) {
     if (!node) return nil;
     NSArray<NSString *> *paths = @[
-        @"item.message.id",
-        @"item.message.messageId",
-        @"message.id",
-        @"message.messageId",
-        @"item.id",
-        @"item.messageId",
         @"messageId",
+        @"message.messageId",
+        @"item.message.messageId",
+        @"item.message.id",
+        @"message.id",
+        @"item.messageId",
+        @"item.id",
     ];
     for (NSString *p in paths) {
         @try {
             id v = [node valueForKeyPath:p];
             if (v) {
+                if (kDebugLog) NSLog(@"[SGRecallMark] path '%@' -> %@ (%@)", p, v, [v class]);
                 if ([v isKindOfClass:[NSNumber class]]) return (NSNumber *)v;
                 if ([v respondsToSelector:@selector(integerValue)]) {
                     return @([v integerValue]);
                 }
             }
         } @catch (NSException *e) {
-            // KVC 路径不存在，继续尝试下一条
+            if (kDebugLog) NSLog(@"[SGRecallMark] path '%@' FAILED: %@", p, e.name);
         }
     }
     return nil;
