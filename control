@@ -1,0 +1,9 @@
+Package: com.example.swiftgramantirecallmarker
+Name: Swiftgram Anti-Recall Marker
+Version: 1.0.0
+Architecture: iphoneos-arm64
+Description: 给 Swiftgram 中已被撤回（但被防撤回保留）的消息添加「已撤回」标记。需配合防撤回插件（SwiftgramEnhancer）使用。
+Maintainer: SwiftgramAntiRecallMarker
+Author: SwiftgramAntiRecallMarker
+Section: Tweaks
+Depends: mobilesubstrate
