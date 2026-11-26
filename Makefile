@@ -1,6 +1,7 @@
 TARGET := iphone:clang:latest:15.0
 ARCHS := arm64
 INSTALL_TARGET_PROCESSES := Swiftgram
+THEOS_PACKAGE_SCHEME = rootless
 
 include $(THEOS)/makefiles/common.mk
 
