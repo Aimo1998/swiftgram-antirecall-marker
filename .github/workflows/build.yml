@@ -15,6 +15,7 @@ jobs:
         run: |
           export THEOS=$HOME/theos
           echo "THEOS=$THEOS" >> $GITHUB_ENV
+          brew install ldid
           git clone --recursive --depth 1 https://github.com/theos/theos.git $THEOS
           mkdir -p $THEOS/sdks
           # 用 Xcode 自带 SDK（ditto 正确处理 symlink，避免 unzip 的权限问题）
